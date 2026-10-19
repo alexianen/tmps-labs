@@ -1,9 +1,14 @@
 // the main company that controls everything
 
-public class Company {
+public final class Company {
+    Business business = new Business();
 
-    public void manage() {
-        System.out.println("Lorem ipsum");
+    public void registerBusiness(business) {
+
+    };
+
+    public void adaptNewPolicy() {
+
     }
 
 }

@@ -1,5 +1,5 @@
 public class BusinessMaker {
-    private Business createBusiness() {
+    public Business createBusiness(String name, String location, int numWorkers) {
 
     }
 }

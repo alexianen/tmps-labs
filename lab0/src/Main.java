@@ -4,7 +4,9 @@ public class Main {
     private final static Scanner scn = new Scanner(System.in);
 
     public static void main(String[] args) {
-        var business = new BusinessMaker();
+
+        BusinessMaker maker = new BusinessMaker();
+
 
         System.out.println("Welcome! Let's open a business based on an existing franchise!");
         System.out.println("Let's say... we should open a new DAVIDAN in Ciocana. Or any other restaurant, really." +
@@ -18,7 +20,10 @@ public class Main {
         String location = scn.nextLine().trim();
         System.out.println("How many employees?");
         System.out.println("> ");
-        String numEmployees = scn.nextLine().trim();
+        String numE = scn.nextLine().trim();
+        int numEmployees = Integer.parseInt(numE);
+
+        Business b = maker.createBusiness(name, location, numEmployees);
 
     }
 }
