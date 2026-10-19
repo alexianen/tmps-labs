@@ -1,14 +1,23 @@
-// the main company that controls everything
+import java.util.ArrayList;
+import java.util.List;
 
-public final class Company {
-    Business business = new Business();
+public class Company {
+    private final List<Business> businesses = new ArrayList<>();
 
-    public void registerBusiness(business) {
-
-    };
-
-    public void adaptNewPolicy() {
-
+    public void registerBusiness(Business business) {
+        businesses.add(business);
     }
 
+    public void printBusinesses(Output output) {
+        for (Business business : businesses) {
+            business.printSummary(output);
+        }
+    }
+
+    public void manageAllBusinesses() {
+        for (Business business : businesses) {
+            business.open();
+            business.performWork();
+        }
+    }
 }

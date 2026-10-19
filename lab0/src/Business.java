@@ -1,14 +1,17 @@
-// separate bussinesses locations
+import java.util.ArrayList;
+import java.util.List;
 
-public class Business implements Reportable, Employable {
+public class Business {
+    private String name;
+    private String location;
+    private int numWorkers;
+    private float revenue;
+    private final List<Worker> workers = new ArrayList<>();
 
-    public String name;
-    public String location;
-    public int numWorkers;
-    public float revenue;
-    public boolean isOpen;
+    public Business() {
+    }
 
-    // getters and setters
+    // getters, setters
 
     public String getName() {
         return name;
@@ -16,39 +19,53 @@ public class Business implements Reportable, Employable {
     public void setName(String name) {
         this.name = name;
     }
+
     public String getLocation() {
         return location;
     }
     public void setLocation(String location) {
         this.location = location;
     }
+
     public int getNumWorkers() {
         return numWorkers;
     }
     public void setNumWorkers(int numWorkers) {
         this.numWorkers = numWorkers;
     }
+
     public float getRevenue() {
         return revenue;
     }
     public void setRevenue(float revenue) {
         this.revenue = revenue;
     }
-    public boolean isOpen() {
-        return isOpen;
+
+    public void addWorker(Worker worker) {
+        workers.add(worker);
     }
-    public void setOpen(boolean open) {
-        isOpen = open;
-    }
-
-
-    @Override
-    public void hireWorkers() {
-
+    public void removeWorker(Worker worker) {
+        workers.remove(worker);
     }
 
-    @Override
-    public void fireWorkers() {
+    public void open() {
+        System.out.println(name + " is now open.");
+    }
 
+    public void close() {
+        System.out.println(name + " is now closed.");
+    }
+
+    public void printSummary(Output output) {
+        output.println("Business: " + name);
+        output.println("Location: " + location);
+        output.println("Workers: " + numWorkers);
+        output.println("Revenue: " + revenue);
+    }
+
+    public void performWork() {
+        for (Worker worker : workers) {
+            worker.doWork();
+        }
     }
 }
