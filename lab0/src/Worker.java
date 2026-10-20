@@ -1,3 +1,3 @@
 public interface Worker {
-    public void doWork();
+    void doWork();
 }

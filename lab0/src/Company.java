@@ -8,16 +8,16 @@ public class Company {
         businesses.add(business);
     }
 
-    public void printBusinesses(Output output) {
-        for (Business business : businesses) {
-            business.printSummary(output);
-        }
-    }
-
     public void manageAllBusinesses() {
         for (Business business : businesses) {
             business.open();
             business.performWork();
+        }
+    }
+
+    public void printBusinesses(Output output) {
+        for (Business business : businesses) {
+            business.printSummary(output);
         }
     }
 }

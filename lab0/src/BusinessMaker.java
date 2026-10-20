@@ -1,4 +1,5 @@
 public class BusinessMaker {
+
     public Business createBusiness(String name, String location, int numWorkers, float revenue) {
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("Business name is required.");

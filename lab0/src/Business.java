@@ -8,11 +8,6 @@ public class Business {
     private float revenue;
     private final List<Worker> workers = new ArrayList<>();
 
-    public Business() {
-    }
-
-    // getters, setters
-
     public String getName() {
         return name;
     }
@@ -44,16 +39,15 @@ public class Business {
     public void addWorker(Worker worker) {
         workers.add(worker);
     }
-    public void removeWorker(Worker worker) {
-        workers.remove(worker);
-    }
 
     public void open() {
         System.out.println(name + " is now open.");
     }
 
-    public void close() {
-        System.out.println(name + " is now closed.");
+    public void performWork() {
+        for (Worker worker : workers) {
+            worker.doWork();
+        }
     }
 
     public void printSummary(Output output) {
@@ -61,11 +55,5 @@ public class Business {
         output.println("Location: " + location);
         output.println("Workers: " + numWorkers);
         output.println("Revenue: " + revenue);
-    }
-
-    public void performWork() {
-        for (Worker worker : workers) {
-            worker.doWork();
-        }
     }
 }
