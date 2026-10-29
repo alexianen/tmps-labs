@@ -15,7 +15,7 @@ The final model is based on:
 - Company as the central headquarters;
 - Business as a branch or shop;
 - Worker as the abstraction for employee behavior;
-- BusinessMaker as the object creation mechanism;
+- BusinessFactory as the object creation mechanism;
 - Output and ConsoleOutput as the presentation layer;
 - Main as the execution entry point.
 
@@ -42,9 +42,9 @@ It stores its: name, location, number of workers and revenue.
 It can also: open; add workers; perform work; 
 print a business summary.
 
-### 2.3 BusinessMaker
+### 2.3 BusinessFactory
 
-The BusinessMaker class is the creation mechanism for new 
+The BusinessFactory class is the creation mechanism for new 
 businesses. It validates user input and creates valid Business 
 objects. This is the core factory structure in the application.
 It also represents a Factory design pattern.
@@ -70,7 +70,7 @@ the domain classes.
 The Main class acts as the application entry point. It:
 
 - reads data from the terminal;
-- creates a Business using BusinessMaker;
+- creates a Business using BusinessFactory;
 - adds workers;
 - registers the business in Company;
 - starts the company-level operations.
@@ -85,7 +85,7 @@ should have only one reason to change.
 
 This architecture respects SRP because:
 
-- BusinessMaker is responsible only for creation;
+- BusinessFactory is responsible only for creation;
 - Business is responsible for a single branch;
 - Company is responsible for company management;
 - Worker is responsible for employee behavior;

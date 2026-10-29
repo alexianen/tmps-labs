@@ -1,0 +1,24 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public final class Company {
+    private static Company INSTANCE;
+    private final List<Business> businesses = new ArrayList<>();
+
+    public void registerBusiness(Business business) {
+        businesses.add(business);
+    }
+
+    public void manageAllBusinesses() {
+        for (Business business : businesses) {
+            business.open();
+            business.performWork();
+        }
+    }
+
+    public void printBusinesses(Output output) {
+        for (Business business : businesses) {
+            business.printSummary(output);
+        }
+    }
+}
