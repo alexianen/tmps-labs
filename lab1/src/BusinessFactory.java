@@ -1,4 +1,4 @@
-public class BusinessFactory {
+public abstract class BusinessFactory {
 
     public Business createBusiness(String name, String location, int numWorkers, float revenue) {
         if (name == null || name.trim().isEmpty()) {
@@ -23,4 +23,6 @@ public class BusinessFactory {
 
         return business;
     }
+
+    protected abstract Business createBusiness();
 }

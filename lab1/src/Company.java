@@ -5,6 +5,17 @@ public final class Company {
     private static Company INSTANCE;
     private final List<Business> businesses = new ArrayList<>();
 
+    private Company() {
+
+    }
+
+    public static Company getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new Company();
+        }
+        return INSTANCE;
+    }
+
     public void registerBusiness(Business business) {
         businesses.add(business);
     }

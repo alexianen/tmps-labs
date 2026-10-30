@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Business {
+public class Business extends BusinessFactory {
     private String name;
     private String location;
     private int numWorkers;
@@ -55,5 +55,10 @@ public class Business {
         output.println("Location: " + location);
         output.println("Workers: " + numWorkers);
         output.println("Revenue: " + revenue);
+    }
+
+    @Override
+    protected Business createBusiness() {
+        return new Business();
     }
 }
