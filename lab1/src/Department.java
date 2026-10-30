@@ -8,6 +8,13 @@ public class Department {
 
 
     Department(Builder builder) {
+        // validation
+        if (builder.depName == null || builder.depName.trim().isEmpty()) {
+            throw new IllegalArgumentException("Department name is required.");
+        }
+        if (builder.numWorkers < 0) {
+            throw new IllegalArgumentException("Number of workers cannot be negative.");
+        }
         this.depName = builder.depName;
         this.manager = builder.manager;
         this.numWorkers = builder.numWorkers;
