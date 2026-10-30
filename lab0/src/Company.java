@@ -1,7 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Company {
+public final class Company {
+    private static Company INSTANCE;
     private final List<Business> businesses = new ArrayList<>();
 
     public void registerBusiness(Business business) {

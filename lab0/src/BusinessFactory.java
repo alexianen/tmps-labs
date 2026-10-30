@@ -1,4 +1,4 @@
-public class BusinessMaker {
+public class BusinessFactory {
 
     public Business createBusiness(String name, String location, int numWorkers, float revenue) {
         if (name == null || name.trim().isEmpty()) {
@@ -15,6 +15,7 @@ public class BusinessMaker {
         }
 
         Business business = new Business();
+
         business.setName(name);
         business.setLocation(location);
         business.setNumWorkers(numWorkers);

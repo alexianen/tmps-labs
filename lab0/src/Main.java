@@ -1,11 +1,15 @@
+/**
+
+
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+
         Scanner scanner = new Scanner(System.in);
         Output output = new ConsoleOutput();
         Company company = new Company();
-        BusinessMaker maker = new BusinessMaker();
+        BusinessFactory maker = new BusinessFactory();
 
         output.println("Welcome to the company manager.");
 
@@ -36,6 +40,13 @@ public class Main {
             business.addWorker(new Itist());
             business.addWorker(new Designer());
 
+            System.out.println("A business needs departments: ");
+            System.out.println("Which department do you want to add?");
+            System.out.println("1. Human resources");
+            System.out.println("2. Information technology department");
+            String dpName = scanner.nextLine();
+
+
             company.registerBusiness(business);
             output.println("Business opened successfully.");
         }
@@ -43,5 +54,15 @@ public class Main {
         output.println("Company businesses:");
         company.printBusinesses(output);
         company.manageAllBusinesses();
+
+        Department department = new Department.Builder()
+                .name("Hello")
+                .numWorkers(5)
+                .build();
+
+        System.out.println(department);
+        System.out.println(department.getName());
+        System.out.println(department.getNumWorkers());
     }
 }
+ */
