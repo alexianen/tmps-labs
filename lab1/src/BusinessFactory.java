@@ -14,8 +14,7 @@ public abstract class BusinessFactory {
             throw new IllegalArgumentException("Revenue cannot be negative.");
         }
 
-        Business business = new Business();
-
+        Business business = createBusinessInstance();
         business.setName(name);
         business.setLocation(location);
         business.setNumWorkers(numWorkers);
@@ -24,5 +23,5 @@ public abstract class BusinessFactory {
         return business;
     }
 
-    protected abstract Business createBusiness();
+    protected abstract Business createBusinessInstance();
 }

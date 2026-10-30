@@ -6,7 +6,8 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         Output output = new ConsoleOutput();
         Company company = Company.getInstance();
-        BusinessFactory businessMaker = Business.createBusiness() ;
+
+        BusinessFactory factory = new RestaurantFactory();
 
         output.println("Welcome to the company manager.");
 
@@ -30,7 +31,7 @@ public class Main {
             output.println("Enter revenue:");
             float revenue = Float.parseFloat(scanner.nextLine());
 
-            Business business = businessMaker.createBusiness(name, location, workers, revenue);
+            Business business = factory.createBusiness(name, location, workers, revenue);
 
             business.addWorker(new Cashier());
             business.addWorker(new Cook());
