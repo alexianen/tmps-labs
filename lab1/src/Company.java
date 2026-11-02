@@ -10,7 +10,11 @@ public final class Company {
 
     public static Company getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new Company();
+            synchronized (Company.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = new Company();
+                }
+            }
         }
         return INSTANCE;
     }
@@ -22,16 +26,15 @@ public final class Company {
         businesses.add(business);
     }
 
-    public void manageAllBusinesses() {
-        for (Business business : businesses) {
-            business.open();
-            business.performWork();
-        }
-    }
 
     public void printBusinesses(Output output) {
-        for (Business business : businesses) {
+        output.println("Company businesses:");
+        for (int i = 0; i < businesses.size(); i++) {
+            Business business = businesses.get(i);
+
+            output.println("---- " + (i + 1) + " ----");
             business.printSummary(output);
+            output.println("");
         }
     }
 }

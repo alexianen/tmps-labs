@@ -24,12 +24,12 @@ public class Main {
             String location = scanner.nextLine();
 
             output.println("Enter number of workers:");
-            int workers = Integer.parseInt(scanner.nextLine());
+            int totalBusinessWorkers = Integer.parseInt(scanner.nextLine());
 
             output.println("Enter revenue:");
             float revenue = Float.parseFloat(scanner.nextLine());
 
-            Business business = businessFactory.createBusiness(name, location, workers, revenue);
+            Business business = businessFactory.createBusiness(name, location, totalBusinessWorkers, revenue);
 
             business.addWorker(new Cashier());
             business.addWorker(new Cook());
@@ -44,52 +44,70 @@ public class Main {
                     break;
                 }
 
-                output.println("Choose a department to add:");
-                output.println("1. Human Resources");
-                output.println("2. Information Technology");
-                output.println("3. Sales");
-                String departmentChoice = scanner.nextLine();
+                output.println("Choose a department:");
+                output.println("1. IT Department");
+                output.println("2. Corporate Relations");
+                output.println("3. Human Resources");
+                output.println("4. Sales");
+                output.println("5. Logistics");
 
-                Department department;
-                switch (departmentChoice) {
+                String choice = scanner.nextLine();
+
+                String departmentName;
+                int departmentWorkers;
+
+                while (true) {
+                    output.println("How many workers can work in this department?");
+                    departmentWorkers = Integer.parseInt(scanner.nextLine());
+
+                    int currentDepartmentsTotal = business.getDepartmentWorkersTotal();
+
+                    if (currentDepartmentsTotal + departmentWorkers <= totalBusinessWorkers) {
+                        break;
+                    }
+
+                    output.println("The total workers in departments cannot exceed the business worker count.");
+                    output.println("Current used workers: " + currentDepartmentsTotal);
+                    output.println("Remaining workers: " + (totalBusinessWorkers - currentDepartmentsTotal));
+                    output.println("Please enter a smaller value.");
+                }
+
+                switch (choice) {
                     case "1":
-                        department = new Department.Builder()
-                                .depName("Human Resources")
-                                .numWorkers(3)
-                                .build();
+                        departmentName = "IT Department";
                         break;
                     case "2":
-                        department = new Department.Builder()
-                                .depName("Information Technology")
-                                .numWorkers(5)
-                                .build();
+                        departmentName = "Corporate Relations";
                         break;
                     case "3":
-                        department = new Department.Builder()
-                                .depName("Sales")
-                                .numWorkers(4)
-                                .build();
+                        departmentName = "Human Resources";
+                        break;
+                    case "4":
+                        departmentName = "Sales";
+                        break;
+                    case "5":
+                        departmentName = "Logistics";
                         break;
                     default:
-                        department = new Department.Builder()
-                                .depName("General")
-                                .numWorkers(1)
-                                .build();
+                        departmentName = "General Department";
                         break;
                 }
 
+                Department department = new Department.Builder()
+                        .depName(departmentName)
+                        .numWorkers(departmentWorkers)
+                        .build();
+
                 business.addDepartment(department);
+
+                output.println("Department added successfully: " + departmentName
+                        + " (" + departmentWorkers + " workers)");
             }
 
             company.registerBusiness(business);
             output.println("Business opened successfully.");
         }
 
-        output.println("Company businesses:");
-        System.out.println();
         company.printBusinesses(output);
-        System.out.println();
-        company.manageAllBusinesses();
-        System.out.println();
     }
 }

@@ -12,6 +12,7 @@ public class Business {
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -19,6 +20,7 @@ public class Business {
     public String getLocation() {
         return location;
     }
+
     public void setLocation(String location) {
         this.location = location;
     }
@@ -26,6 +28,7 @@ public class Business {
     public int getNumWorkers() {
         return numWorkers;
     }
+
     public void setNumWorkers(int numWorkers) {
         this.numWorkers = numWorkers;
     }
@@ -33,6 +36,7 @@ public class Business {
     public float getRevenue() {
         return revenue;
     }
+
     public void setRevenue(float revenue) {
         this.revenue = revenue;
     }
@@ -44,13 +48,28 @@ public class Business {
         workers.add(worker);
     }
 
+    public int getDepartmentWorkersTotal() {
+        int total = 0;
+        for (Department department : departments) {
+            total += department.getNumWorkers();
+        }
+        return total;
+    }
+
     public void addDepartment(Department department) {
         if (department == null) {
             throw new IllegalArgumentException("Department cannot be null.");
         }
+
+        int currentTotal = getDepartmentWorkersTotal();
+
+        if (currentTotal + department.getNumWorkers() > numWorkers) {
+            throw new IllegalArgumentException(
+                    "The total workers in departments cannot exceed the business worker count (" + numWorkers + ")."
+            );
+        }
         departments.add(department);
     }
-
 
     public void open() {
         System.out.println(name + " is now open.");
