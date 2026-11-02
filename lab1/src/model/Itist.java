@@ -1,3 +1,5 @@
+package model;
+
 public class Itist implements Worker{
     @Override
     public void doWork() {

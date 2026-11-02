@@ -1,9 +1,11 @@
+package model;
+
 public class Department {
     private final String depName;
     private final String manager;
     private final int numWorkers;
-    private final float budget;
-    private final String socMed;
+    private final double budget;
+    private final String socialMedia;
 
 
     private Department(Builder builder) {
@@ -14,11 +16,14 @@ public class Department {
         if (builder.numWorkers < 0) {
             throw new IllegalArgumentException("Number of workers cannot be negative.");
         }
+        if (builder.budget < 0) {
+            throw new IllegalArgumentException("Budget cannot be negative.");
+        }
         this.depName = builder.depName;
         this.manager = builder.manager;
         this.numWorkers = builder.numWorkers;
         this.budget = builder.budget;
-        this.socMed = builder.socMed;
+        this.socialMedia = builder.socialMedia;
     }
 
     public String getName() {
@@ -28,15 +33,15 @@ public class Department {
     public int getNumWorkers() {
         return numWorkers;
     }
-    public float getBudget() { return budget; }
-    public String getSocMed() { return socMed; }
+    public double getBudget() { return budget; }
+    public String getSocialMedia() { return socialMedia; }
 
     public static class Builder {
         private String depName;
-        private String manager;
+        private String manager = "";
         private int numWorkers;
-        private float budget;
-        private String socMed;
+        private double budget;
+        private String socialMedia = "";
 
         public Builder depName(String depName) {
             this.depName = depName;
@@ -50,12 +55,13 @@ public class Department {
             this.numWorkers = numWorkers;
             return this;
         }
-        public Builder budget(float budget) {
+        public Builder budget(double budget) {
+
             this.budget = budget;
             return this;
         }
-        public Builder socMed(String socMed) {
-            this.socMed = socMed;
+        public Builder socialMedia(String socialMedia) {
+            this.socialMedia = socialMedia;
             return this;
         }
 

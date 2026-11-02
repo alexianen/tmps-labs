@@ -1,43 +1,73 @@
+package model;
+
+import output.Output;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Business {
+
+public abstract class Business {
     private String name;
     private String location;
     private int numWorkers;
     private float revenue;
+    private String type;
     private final List<Worker> workers = new ArrayList<>();
     private final List<Department> departments = new ArrayList<>();
+
+    public String getType() {
+        return type;
+    }
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Business name is required.");
+        }
         this.name = name;
     }
 
     public String getLocation() {
         return location;
     }
-
     public void setLocation(String location) {
+        if (location == null || location.trim().isEmpty()) {
+            throw new IllegalArgumentException("Business location is required.");
+        }
         this.location = location;
     }
 
     public int getNumWorkers() {
         return numWorkers;
     }
-
     public void setNumWorkers(int numWorkers) {
+        if (numWorkers < 0) {
+            throw new IllegalArgumentException("Number of workers cannot be negative.");
+        }
+        if (numWorkers < getDepartmentWorkersTotal()) {
+            throw new IllegalArgumentException(
+                    "Worker count cannot be lower than the workers already assigned to departments ("
+                            + getDepartmentWorkersTotal() + ")."
+            );
+        }
         this.numWorkers = numWorkers;
     }
 
     public float getRevenue() {
+        if (revenue < 0) {
+            throw new IllegalArgumentException("Revenue cannot be negative.");
+        }
         return revenue;
     }
-
     public void setRevenue(float revenue) {
+        if (revenue < 0) {
+            throw new IllegalArgumentException("Revenue cannot be negative.");
+        }
         this.revenue = revenue;
     }
 
@@ -68,6 +98,7 @@ public class Business {
                     "The total workers in departments cannot exceed the business worker count (" + numWorkers + ")."
             );
         }
+
         departments.add(department);
     }
 
@@ -82,14 +113,18 @@ public class Business {
     }
 
     public void printSummary(Output output) {
+        output.println("Business type: " + type);
         output.println("Business: " + name);
         output.println("Location: " + location);
         output.println("Workers: " + numWorkers);
         output.println("Revenue: " + revenue);
         output.println("Departments: " + departments.size());
 
-        for (Department department : departments) {
-            output.println("- " + department.getName() + " (" + department.getNumWorkers() + " workers)");
+        for (Department d : departments) {
+            output.println("- " + d.getName() + " (" + d.getNumWorkers() + " workers)");
+            if (!d.getManager().isBlank()) output.println("    Manager: " + d.getManager());
+            output.println("    Budget: " + d.getBudget());
+            if (!d.getSocialMedia().isBlank()) output.println("    Social media: " + d.getSocialMedia());
         }
     }
 }

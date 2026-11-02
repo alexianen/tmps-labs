@@ -1,3 +1,5 @@
+package output;
+
 public class ConsoleOutput implements Output {
     @Override
     public void println(String message) {

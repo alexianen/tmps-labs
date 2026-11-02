@@ -1,3 +1,6 @@
+import factory.*;
+import model.*;
+import output.*;
 import java.util.Scanner;
 
 public class Main {
@@ -5,7 +8,6 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         Output output = new ConsoleOutput();
         Company company = Company.getInstance();
-        BusinessFactory businessFactory = new RestaurantFactory();
 
         output.println("Welcome to the company manager.");
 
@@ -17,6 +19,20 @@ public class Main {
                 break;
             }
 
+            output.println("Choose business type:");
+            output.println("1. Restaurant");
+            output.println("2. Game Shop");
+            output.println("3. IT Company");
+            output.println("4. Other");
+
+            String typeChoice = scanner.nextLine();
+            BusinessFactory factory = switch (typeChoice) {
+                case "1" -> new RestaurantFactory();
+                case "2" -> new GameShopFactory();
+                case "3" -> new ITCompanyFactory();
+                default -> new GeneralBusinessFactory();
+            };
+
             output.println("Enter business name:");
             String name = scanner.nextLine();
 
@@ -24,23 +40,20 @@ public class Main {
             String location = scanner.nextLine();
 
             output.println("Enter number of workers:");
-            int totalBusinessWorkers = Integer.parseInt(scanner.nextLine());
+            int workers = Integer.parseInt(scanner.nextLine());
 
             output.println("Enter revenue:");
             float revenue = Float.parseFloat(scanner.nextLine());
 
-            Business business = businessFactory.createBusiness(name, location, totalBusinessWorkers, revenue);
+            Business business = factory.createBusiness(name, location, workers, revenue);
 
-            business.addWorker(new Cashier());
-            business.addWorker(new Cook());
-            business.addWorker(new Itist());
-            business.addWorker(new Designer());
+            company.registerBusiness(business);
 
             while (true) {
                 output.println("Do you want to add a department? (yes/no)");
-                String addDepartmentAnswer = scanner.nextLine();
+                String departmentAnswer = scanner.nextLine();
 
-                if (!"yes".equalsIgnoreCase(addDepartmentAnswer)) {
+                if (!"yes".equalsIgnoreCase(departmentAnswer)) {
                     break;
                 }
 
@@ -51,28 +64,10 @@ public class Main {
                 output.println("4. Sales");
                 output.println("5. Logistics");
 
-                String choice = scanner.nextLine();
+                String departmentChoice = scanner.nextLine();
 
                 String departmentName;
-                int departmentWorkers;
-
-                while (true) {
-                    output.println("How many workers can work in this department?");
-                    departmentWorkers = Integer.parseInt(scanner.nextLine());
-
-                    int currentDepartmentsTotal = business.getDepartmentWorkersTotal();
-
-                    if (currentDepartmentsTotal + departmentWorkers <= totalBusinessWorkers) {
-                        break;
-                    }
-
-                    output.println("The total workers in departments cannot exceed the business worker count.");
-                    output.println("Current used workers: " + currentDepartmentsTotal);
-                    output.println("Remaining workers: " + (totalBusinessWorkers - currentDepartmentsTotal));
-                    output.println("Please enter a smaller value.");
-                }
-
-                switch (choice) {
+                switch (departmentChoice) {
                     case "1":
                         departmentName = "IT Department";
                         break;
@@ -93,21 +88,35 @@ public class Main {
                         break;
                 }
 
-                Department department = new Department.Builder()
-                        .depName(departmentName)
-                        .numWorkers(departmentWorkers)
-                        .build();
+                output.println("How many workers can work in this department?");
+                int departmentWorkers = Integer.parseInt(scanner.nextLine());
 
-                business.addDepartment(department);
+                output.println("Enter department manager (press Enter to skip):");
+                String manager = scanner.nextLine();
 
-                output.println("Department added successfully: " + departmentName
-                        + " (" + departmentWorkers + " workers)");
+                output.println("Enter department budget (press Enter to skip):");
+                String budgetInput = scanner.nextLine();
+                double departmentBudget = budgetInput.trim().isEmpty() ? 0 : Double.parseDouble(budgetInput);
+
+                output.println("Enter department social media (press Enter to skip):");
+                String socialMedia = scanner.nextLine();
+
+                try {
+                    Department department = new Department.Builder()
+                            .depName(departmentName)
+                            .manager(manager)
+                            .budget(departmentBudget)
+                            .numWorkers(departmentWorkers)
+                            .socialMedia(socialMedia)
+                            .build();
+
+                    business.addDepartment(department);
+                    output.println("Department added successfully.");
+                } catch (IllegalArgumentException e) {
+                    output.println(e.getMessage());
+                }
             }
-
-            company.registerBusiness(business);
-            output.println("Business opened successfully.");
         }
-
         company.printBusinesses(output);
     }
 }

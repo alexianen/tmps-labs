@@ -12,11 +12,11 @@ principles.
 
 The final model is based on:
 
-- Company as the central headquarters;
-- Business as a branch or shop;
-- Worker as the abstraction for employee behavior;
-- BusinessFactory as the object creation mechanism;
-- Output and ConsoleOutput as the presentation layer;
+- model.Company as the central headquarters;
+- model.Business as a branch or shop;
+- model.Worker as the abstraction for employee behavior;
+- factory.BusinessFactory as the object creation mechanism;
+- output.Output and output.ConsoleOutput as the presentation layer;
 - Main as the execution entry point.
 
 This structure mirrors a realistic business environment in which 
@@ -26,41 +26,41 @@ has employees performing different tasks.
 ---
 ## 2. Architecture
 The final architecture can be summarized as follows:
-### 2.1 Company
+### 2.1 model.Company
 
-The Company class represents the central organization or
-headquarters. It manages multiple Business instances and acts
+The model.Company class represents the central organization or
+headquarters. It manages multiple model.Business instances and acts
 as the top-level coordinator for company-level operations. 
 It stores all businesses and is responsible for registering 
 and managing them.
 
-### 2.2 Business
+### 2.2 model.Business
 
-The Business class represents one branch or franchise shop.
+The model.Business class represents one branch or franchise shop.
 It stores its: name, location, number of workers and revenue.
 
 It can also: open; add workers; perform work; 
 print a business summary.
 
-### 2.3 BusinessFactory
+### 2.3 factory.BusinessFactory
 
-The BusinessFactory class is the creation mechanism for new 
-businesses. It validates user input and creates valid Business 
+The factory.BusinessFactory class is the creation mechanism for new 
+businesses. It validates user input and creates valid model.Business 
 objects. This is the core factory structure in the application.
-It also represents a Factory design pattern.
+It also represents a factory design pattern.
 
-### 2.4 Worker
+### 2.4 model.Worker
 
-The Worker interface represents a general employee role. 
-Concrete implementations such as Designer, Cashier, Cook, and ITist
+The model.Worker interface represents a general employee role. 
+Concrete implementations such as model.Designer, model.Cashier, model.Cook, and ITist
 implement this interface and define different behaviors. This 
 also works as Strategy pattern because the behavior is selected 
 through different
 implementations of the same abstraction.
 
-### 2.5 Output and ConsoleOutput
+### 2.5 output.Output and output.ConsoleOutput
 
-The Output interface abstracts console output. ConsoleOutput 
+The output.Output interface abstracts console output. output.ConsoleOutput 
 implements it. This keeps the business logic independent of 
 terminal output and avoids direct dependency on `System.out` inside 
 the domain classes.
@@ -70,9 +70,9 @@ the domain classes.
 The Main class acts as the application entry point. It:
 
 - reads data from the terminal;
-- creates a Business using BusinessFactory;
+- creates a model.Business using factory.BusinessFactory;
 - adds workers;
-- registers the business in Company;
+- registers the business in model.Company;
 - starts the company-level operations.
 
 ---
@@ -85,11 +85,11 @@ should have only one reason to change.
 
 This architecture respects SRP because:
 
-- BusinessFactory is responsible only for creation;
-- Business is responsible for a single branch;
-- Company is responsible for company management;
-- Worker is responsible for employee behavior;
-- Output is responsible for printing.
+- factory.BusinessFactory is responsible only for creation;
+- model.Business is responsible for a single branch;
+- model.Company is responsible for company management;
+- model.Worker is responsible for employee behavior;
+- output.Output is responsible for printing.
 
 This separation makes the code easier to read, maintain, and extend.
 
@@ -99,12 +99,12 @@ The Open/Closed Principle states that software entities
 should be open for extension but closed for modification.
 
 This design respects OCP because 
-- new worker roles can be added without modifying the existing Worker interface
+- new worker roles can be added without modifying the existing model.Worker interface
 - a new business behavior can be introduced by extending a class rather than rewriting existing logic
 - new functionality can be added in a localized manner
 
 For example, adding Manager or SecurityGuard requires creating
-a new class that implements Worker, without changing the existing 
+a new class that implements model.Worker, without changing the existing 
 worker hierarchy.
 
 ### 3.3 Liskov Substitution Principle (LSP)
@@ -114,8 +114,8 @@ derived class should be substitutable for objects of their base
 class without breaking the application.
 
 This is respected because all worker implementations are 
-valid substitutes for Worker. A Designer, Cashier, or Cook can 
-all be used wherever a Worker is expected, and the business 
+valid substitutes for model.Worker. A model.Designer, model.Cashier, or model.Cook can 
+all be used wherever a model.Worker is expected, and the business 
 logic continues to work correctly.
 
 ### 3.4 Interface Segregation Principle (ISP)
@@ -125,8 +125,8 @@ not be forced to depend on methods they do not use.
 
 This design respects ISP because:
 
-- Worker has a single relevant method: doWork();
-- Output exposes a single responsibility: println().
+- model.Worker has a single relevant method: doWork();
+- output.Output exposes a single responsibility: println().
 
 This avoids bloated interfaces and ensures that implementations 
 are not burdened with unnecessary methods.
@@ -139,10 +139,10 @@ depend on abstractions.
 
 This architecture respects DIP because:
 
-- domain logic depends on the Worker abstraction rather
+- domain logic depends on the model.Worker abstraction rather
 than concrete worker implementations;
-- output is abstracted through Output;
-- Main and Company are not tightly coupled to specific classes;
+- output is abstracted through output.Output;
+- Main and model.Company are not tightly coupled to specific classes;
 - concrete implementations can be swapped without rewriting the
 core logic.
 
@@ -151,7 +151,7 @@ This improves flexibility and makes future maintenance easier.
 ---
 
 ## 4. UML Diagram
-<a href="https://ibb.co/pvhNYLz2"><img src="https://i.ibb.co/nsP4xLcr/Business-Workforce-Management-Framework-2026-10-20-065450.png" alt="Business-Workforce-Management-Framework-2026-10-20-065450" border="0" /></a>
+<a href="https://ibb.co/pvhNYLz2"><img src="https://i.ibb.co/nsP4xLcr/model.Business-Workforce-Management-Framework-2026-10-20-065450.png" alt="model.Business-Workforce-Management-Framework-2026-10-20-065450" border="0" /></a>
 
 ---
 ## 5. Conclusion
@@ -159,9 +159,9 @@ In this lab, we made a business model that respects all 5 SOLID
 principles, however I think the best implemented principles are SRP
 (Single Responsibility Principle), OCP (Open/Closed Principle) and
 ISP (Interface Segregation Principle). I based this model off real
-examples: Company class acts as the Headquarters of all the Business
-classes, and each Business class (or each Business) acts mostly
-independently from Company but obviously respects its rules,
+examples: model.Company class acts as the Headquarters of all the model.Business
+classes, and each model.Business class (or each model.Business) acts mostly
+independently from model.Company but obviously respects its rules,
 policies, etc. Overall it was more complicated remembering all the 
 SOLID principles and how to work in Java than designing the model
 itself. 

@@ -1,3 +1,5 @@
+package model;
+
 public class Designer implements Worker{
     @Override
     public void doWork() {
