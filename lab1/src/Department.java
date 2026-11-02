@@ -6,8 +6,7 @@ public class Department {
     private final String socMed;
 
 
-
-    Department(Builder builder) {
+    private Department(Builder builder) {
         // validation
         if (builder.depName == null || builder.depName.trim().isEmpty()) {
             throw new IllegalArgumentException("Department name is required.");

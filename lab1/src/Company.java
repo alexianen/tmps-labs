@@ -6,7 +6,6 @@ public final class Company {
     private final List<Business> businesses = new ArrayList<>();
 
     private Company() {
-
     }
 
     public static Company getInstance() {
@@ -17,6 +16,9 @@ public final class Company {
     }
 
     public void registerBusiness(Business business) {
+        if (business == null) {
+            throw new IllegalArgumentException("Business cannot be null.");
+        }
         businesses.add(business);
     }
 

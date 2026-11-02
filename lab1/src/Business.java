@@ -7,6 +7,7 @@ public class Business {
     private int numWorkers;
     private float revenue;
     private final List<Worker> workers = new ArrayList<>();
+    private final List<Department> departments = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -37,8 +38,19 @@ public class Business {
     }
 
     public void addWorker(Worker worker) {
+        if (worker == null) {
+            throw new IllegalArgumentException("Worker cannot be null.");
+        }
         workers.add(worker);
     }
+
+    public void addDepartment(Department department) {
+        if (department == null) {
+            throw new IllegalArgumentException("Department cannot be null.");
+        }
+        departments.add(department);
+    }
+
 
     public void open() {
         System.out.println(name + " is now open.");
@@ -55,7 +67,10 @@ public class Business {
         output.println("Location: " + location);
         output.println("Workers: " + numWorkers);
         output.println("Revenue: " + revenue);
+        output.println("Departments: " + departments.size());
+
+        for (Department department : departments) {
+            output.println("- " + department.getName() + " (" + department.getNumWorkers() + " workers)");
+        }
     }
-
-
 }
