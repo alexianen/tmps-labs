@@ -59,9 +59,6 @@ public abstract class Business {
     }
 
     public float getRevenue() {
-        if (revenue < 0) {
-            throw new IllegalArgumentException("Revenue cannot be negative.");
-        }
         return revenue;
     }
     public void setRevenue(float revenue) {
@@ -102,13 +99,13 @@ public abstract class Business {
         departments.add(department);
     }
 
-    public void open() {
-        System.out.println(name + " is now open.");
+    public void open(Output output) {
+        output.println(name + " is now open.");
     }
 
-    public void performWork() {
+    public void performWork(Output output) {
         for (Worker worker : workers) {
-            worker.doWork();
+            worker.doWork(output);
         }
     }
 

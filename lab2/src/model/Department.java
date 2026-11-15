@@ -1,6 +1,9 @@
 package model;
 
 public class Department {
+    // Builder means: instead of one huge constructor,
+    // we fill in the details step by step on a helper object,
+    // and it creates the finished, validated object when we say “build”.
     private final String depName;
     private final String manager;
     private final int numWorkers;
