@@ -7,9 +7,9 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        Output output = new ConsoleOutput();
-        Company company = new Company();
-        BusinessFactory maker = new BusinessFactory();
+        output.Output output = new output.ConsoleOutput();
+        model.Company company = new model.Company();
+        Factory.BusinessFactory maker = new Factory.BusinessFactory();
 
         output.println("Welcome to the company manager.");
 
@@ -33,12 +33,12 @@ public class Main {
             output.println("Enter revenue:");
             float revenue = Float.parseFloat(scanner.nextLine());
 
-            Business business = maker.createBusiness(name, location, workers, revenue);
+            model.Business business = maker.createBusiness(name, location, workers, revenue);
 
-            business.addWorker(new Cashier());
-            business.addWorker(new Cook());
-            business.addWorker(new Itist());
-            business.addWorker(new Designer());
+            business.addWorker(new model.Cashier());
+            business.addWorker(new model.Cook());
+            business.addWorker(new model.Itist());
+            business.addWorker(new model.Designer());
 
             System.out.println("A business needs departments: ");
             System.out.println("Which department do you want to add?");
@@ -48,14 +48,14 @@ public class Main {
 
 
             company.registerBusiness(business);
-            output.println("Business opened successfully.");
+            output.println("model.Business opened successfully.");
         }
 
-        output.println("Company businesses:");
+        output.println("model.Company businesses:");
         company.printBusinesses(output);
         company.manageAllBusinesses();
 
-        Department department = new Department.Builder()
+        model.Department department = new model.Department.Builder()
                 .name("Hello")
                 .numWorkers(5)
                 .build();

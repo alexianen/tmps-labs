@@ -1,3 +1,4 @@
+"""
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,9 +52,10 @@ public class Business {
     }
 
     public void printSummary(Output output) {
-        output.println("Business: " + name);
+        output.println("model.Business: " + name);
         output.println("Location: " + location);
         output.println("Workers: " + numWorkers);
         output.println("Revenue: " + revenue);
     }
 }
+        """
